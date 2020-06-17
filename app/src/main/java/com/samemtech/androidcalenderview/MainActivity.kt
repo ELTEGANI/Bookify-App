@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +12,7 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
@@ -71,68 +71,40 @@ class MainActivity : AppCompatActivity() {
 
 
         save_button.setOnClickListener {
-            var totalPrice = 0
-            var endWeekDayPrice = 900
-            var midWeekDayPrice = 700
+            val totalPrice: Int
             val removedList = materialCalendarView.selectedDates.toList()
-            for (day in removedList) {
-                val dayOfWeek = dayName(day)
-                if (dayOfWeek == 6 || dayOfWeek == 7) {
-                    Toast.makeText(this, "pay 900 SAR", Toast.LENGTH_LONG).show()
-                } else {
-                    Toast.makeText(this, "pay 700 SAR", Toast.LENGTH_LONG).show()
-                }
+            val dayOfWeek = dayNameNumbers(removedList)
+            val weekEndDays = dayOfWeek.groupingBy { it }.eachCount().filter { it.key in 5..6 }
+            val normalDays = dayOfWeek.groupingBy { it }.eachCount().filter { it.key == 7 || it.key in 1..4 }
+            if (weekEndDays.isNotEmpty()) {
+                val totalWeekEndDays = weekEndDays.values.sum().times(900)
+                val totalNormalEndDays = normalDays.values.sum().times(700)
+                totalPrice = totalWeekEndDays.plus(totalNormalEndDays).plus(500)
+                Toast.makeText(this, "weekEnd Days $totalPrice", Toast.LENGTH_LONG).show()
+            } else {
+                val totalPriceWithoutWeekEndDays = normalDays.values.sum().times(700).plus(500)
+                Toast.makeText(this, "Normal Days $totalPriceWithoutWeekEndDays", Toast.LENGTH_LONG)
+                    .show()
             }
         }
     }
     @SuppressLint("SimpleDateFormat")
-    private fun dayName(day: CalendarDay): Int {
+    private fun dayNameNumbers(dates: List<CalendarDay>): ArrayList<Int> {
+        val dayOfWeek = arrayListOf<Int>()
         val dateFormat = SimpleDateFormat("yyyy-M-d")
-        val date: Date? = dateFormat.parse(day.toString().trim().replace(Regex("""[CalendarDay{}]"""), ""))
-        val c = Calendar.getInstance()
-        c.time = date
-        val dayOfWeek = c[Calendar.DAY_OF_WEEK]
+        for (dateInList in dates){
+            val date: Date? = dateFormat.parse(dateInList.toString().trim().replace(Regex("""[CalendarDay{}]"""), ""))
+            val c = Calendar.getInstance()
+            c.time = date
+            dayOfWeek.add(c[Calendar.DAY_OF_WEEK])
+        }
         return dayOfWeek
+    }
+
+    fun <T> hasDuplicates(arr: Array<T>): Boolean {
+        return arr.size != arr.distinct().count();
     }
 }
 
 
 
-
-
-
-
-
-//                val simpleDateFormat = SimpleDateFormat("EEEE,yyyy-MM-d")
-//                val formatedDate: String = simpleDateFormat.parse(day.toString().trim().replace(Regex("""[CalendarDay{}]"""),"")).toString()
-//                 val date: LocalDate = LocalDate.parse(day.toString().trim().replace(Regex("""[CalendarDay{}]"""),""))
-//                 val day: DayOfWeek = date.dayOfWeek
-//get all selected dates using materialCalendarView.selectedDates
-//Toast.makeText(this,materialCalendarView.selectedDates.toString(),Toast.LENGTH_LONG).show()
-//replace(Regex("""[CalendarDay{}]"""))
-// Toast.makeText(this,,""),Toast.LENGTH_LONG).show()
-
-//            for (selectedlists in selectedDates){
-//                val  splitlist = selectedDates.split(",")
-//                val sdf2 = SimpleDateFormat("EEEE")
-//                val stringDate2: String = sdf2.format(splitlist.toString())
-//}
-//            selectedDates.forEach {
-//            for (ss in selectedDates){
-//                println("Today is: $ss")
-//            }
-//            }
-
-//.trim().replace(Regex("""[CalendarDay{}]"""),"")
-
-
-//             for (lll in removedList.indices){
-//                 println("Today is: $lll[0]")
-//             }
-//             for (list in removedList){
-////                 val sdf2 = SimpleDateFormat("EEEE")
-////                val nameDay: String = sdf2.format(list)
-////                 if (nameDay == "SUNDAY"){
-//
-////                 }
-//             }
