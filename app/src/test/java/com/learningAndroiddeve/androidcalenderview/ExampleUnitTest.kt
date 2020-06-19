@@ -1,4 +1,4 @@
-package com.samemtech.androidcalenderview
+package com.learningAndroiddeve.androidcalenderview
 
 import org.junit.Test
 
