@@ -1,5 +1,7 @@
 <div align="center">
      
+# ![alt text](https://github.com/ELTEGANI/ExpenseMonitorApp/blob/master/app/screenshots/logo.png)   
+     
 # Bookify App
         
 This app implements this awesome [library](https://github.com/prolificinteractive/material-calendarview)
