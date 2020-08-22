@@ -1,6 +1,6 @@
 <div align="center">
      
-# ![alt text](https://github.com/ELTEGANI/Bookify-App/blob/master/app/screenshots/logo.jpg)   
+# ![alt text](https://github.com/ELTEGANI/Bookify-App/blob/master/app/screenshots/logo.png)   
      
 # Bookify App
         
