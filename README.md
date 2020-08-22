@@ -21,7 +21,7 @@ This app implements this awesome [library](https://github.com/prolificinteractiv
 
 ### Libraries
 -  [kotlin](https://kotlinlang.org/)
--  [MVVM Architecture](https://developer.android.com/jetpack/guide)
+-  [Architecture Components](https://developer.android.com/topic/libraries/architecture)
 -  [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
 -  [Coroutines](https://developer.android.com/kotlin/coroutines)
 -  [Navigation](https://developer.android.com/guide/navigation/navigation-getting-started)
