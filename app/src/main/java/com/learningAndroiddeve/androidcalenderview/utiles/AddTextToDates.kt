@@ -1,4 +1,4 @@
-package com.learningAndroiddeve.androidcalenderview
+package com.learningAndroiddeve.androidcalenderview.utiles
 
 import android.graphics.Canvas
 import android.graphics.Paint

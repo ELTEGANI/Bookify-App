@@ -1,6 +1,7 @@
-package com.learningAndroiddeve.androidcalenderview
+package com.learningAndroiddeve.androidcalenderview.utiles
 
 
+import com.learningAndroiddeve.androidcalenderview.utiles.AddTextToDates
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
@@ -15,7 +16,11 @@ class ReservedDaysDecorator(dates: List<CalendarDay>,priceText:String) :DayViewD
     }
 
     override fun decorate(view: DayViewFacade) {
-        view.addSpan(AddTextToDates(priceDay))
+        view.addSpan(
+            AddTextToDates(
+                priceDay
+            )
+        )
         view.setDaysDisabled(true)
     }
 

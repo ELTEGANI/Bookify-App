@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!--Final, top-level theme-->
+    <style name="Theme.Chalet.DayNight" parent="Theme.Chalet"/>
+
+
+    <style name="Theme.Chalet" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!--Color-->
+        <item name="colorPrimary">@color/chalet_purple_800</item>
+
+        <item name="colorSecondary">@color/chalet_purple_700</item>
+
+        <item name="android:colorBackground">@color/chalet_purple_700</item>
+        <item name="android:colorPrimaryDark">@color/chalet_purple_700</item>
+
+        <item name="colorSurface">@color/chalet_purple_800</item>
+
+        <item name="colorOnPrimary">@color/chalet_purple_700</item>
+        <item name="colorOnSecondary">@color/chalet_purple_700</item>
+        <item name="colorOnBackground">@color/chalet_purple_800</item>
+        <item name="colorOnSurface">@color/chalet_white_50</item>
+
+        <!--System/Platform attributes-->
+        <item name="android:windowBackground">?android:colorBackground</item>
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+        <item name="android:statusBarColor">@color/chalet_purple_700</item>
+        <item name="scrimBackground">@color/chalet_purple_700</item>
+        <item name="emphasisHighAlpha">0.87</item>
+    </style>
+
+</resources>

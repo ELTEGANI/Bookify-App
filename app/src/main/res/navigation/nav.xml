@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/splashScreenFragment">
+
+    <fragment
+        android:id="@+id/reservationFragment"
+        android:name="com.learningAndroiddeve.androidcalenderview.reservation.ReservationFragment"
+        android:label="reservation_fragment"
+        tools:layout="@layout/reservation_fragment" />
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.learningAndroiddeve.androidcalenderview.splashscreen.SplashScreenFragment"
+        android:label="SplashScreenFragment" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_reservationFragment"
+            app:destination="@id/reservationFragment"
+            app:popUpTo="@id/splashScreenFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>
