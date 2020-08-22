@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="chalet_purple_800">#9C27B0</color>
+    <color name="chalet_purple_900">#7B1FA2</color>
+    <color name="chalet_purple_700">#E1BEE7</color>
+    <color name="primaryTextColor">#212121</color>
+    <color name="orangeColor">#FF6859</color>
+    <color name="chalet_white_50">#ffffff</color>
 </resources>
