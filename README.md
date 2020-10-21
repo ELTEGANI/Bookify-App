@@ -30,3 +30,4 @@ This app implements this awesome [library](https://github.com/prolificinteractiv
 -  [ConstraintLayout](https://developer.android.com/reference/androidx/constraintlayout/widget/ConstraintLayout)
 -  [ImageSlider](https://github.com/daimajia/AndroidImageSlider)
 -  [material ui](http://material.io/)
+-  [material-calendarview](https://github.com/prolificinteractive/material-calendarview)
