@@ -21,7 +21,7 @@ This app implements this awesome [library](https://github.com/prolificinteractiv
       </tr>
 </table> 
 
-### Libraries
+### Built With
 -  [kotlin](https://kotlinlang.org/)
 -  [Architecture Components](https://developer.android.com/topic/libraries/architecture)
 -  [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
