@@ -15,9 +15,18 @@
         android:name="com.learningAndroiddeve.androidcalenderview.splashscreen.SplashScreenFragment"
         android:label="SplashScreenFragment" >
         <action
-            android:id="@+id/action_splashScreenFragment_to_reservationFragment"
-            app:destination="@id/reservationFragment"
+            android:id="@+id/action_splashScreenFragment_to_allFragments"
+            app:destination="@id/allFragments"
             app:popUpTo="@id/splashScreenFragment"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/allFragments"
+        android:name="com.learningAndroiddeve.androidcalenderview.allchalets.AllFragments"
+        android:label="all_fragments_fragment"
+        tools:layout="@layout/all_chalets_fragment" >
+        <action
+            android:id="@+id/action_allFragments_to_reservationFragment"
+            app:destination="@id/reservationFragment" />
     </fragment>
 </navigation>

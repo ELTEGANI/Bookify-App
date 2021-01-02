@@ -34,7 +34,7 @@ class SplashScreenFragment : Fragment() {
 
         activityScope.launch {
             delay(2000)
-            findNavController().navigate(R.id.action_splashScreenFragment_to_reservationFragment)
+            findNavController().navigate(R.id.action_splashScreenFragment_to_allFragments)
         }
 
         return splashFragmentBinding.root
