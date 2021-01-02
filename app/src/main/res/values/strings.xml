@@ -15,4 +15,6 @@
     <string name="usd">USD</string>
     <string name="day">Day</string>
     <string name="bookify">Bookify</string>
+    <string name="price_per_day">Price Per Day:</string>
+    <string name="chalets">Chalets</string>
 </resources>

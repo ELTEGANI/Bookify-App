@@ -11,6 +11,7 @@ This app implements this awesome [library](https://github.com/prolificinteractiv
 <table align="center">
         <tr>
           <td><img src = "app/screenshots/1.jpg" ></td>
+          <td><img src = "app/screenshots/1_1.jpg" ></td>
           <td><img src = "app/screenshots/2.jpg" ></td>
           <td><img src = "app/screenshots/3.jpg" ></td>
         </tr>
@@ -30,4 +31,6 @@ This app implements this awesome [library](https://github.com/prolificinteractiv
 -  [ConstraintLayout](https://developer.android.com/reference/androidx/constraintlayout/widget/ConstraintLayout)
 -  [ImageSlider](https://github.com/daimajia/AndroidImageSlider)
 -  [material ui](http://material.io/)
+-  [DataBinding](https://developer.android.com/topic/libraries/data-binding)
+-  [Glide](https://github.com/bumptech/glide)
 -  [material-calendarview](https://github.com/prolificinteractive/material-calendarview)
