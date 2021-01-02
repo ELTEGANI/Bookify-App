@@ -17,4 +17,7 @@
     <string name="bookify">Bookify</string>
     <string name="price_per_day">Price Per Day:</string>
     <string name="chalets">Chalets</string>
+    <string name="price_start_from">Price Start From</string>
+    <string name="filter">Filter</string>
+    <string name="date_starting_from_yyyy_m_d">Date Starting From (yyyy-m-d)</string>
 </resources>
