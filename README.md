@@ -12,6 +12,7 @@ This app implements this awesome [library](https://github.com/prolificinteractiv
         <tr>
           <td><img src = "app/screenshots/1.jpg" ></td>
           <td><img src = "app/screenshots/1_1.jpg" ></td>
+          <td><img src = "app/screenshots/1_1_1.jpg" ></td>
           <td><img src = "app/screenshots/2.jpg" ></td>
           <td><img src = "app/screenshots/3.jpg" ></td>
         </tr>
