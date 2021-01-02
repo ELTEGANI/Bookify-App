@@ -22,7 +22,7 @@ This app implements this awesome [library](https://github.com/prolificinteractiv
       </tr>
 </table> 
 
-### Libraries
+### Built With
 -  [kotlin](https://kotlinlang.org/)
 -  [Architecture Components](https://developer.android.com/topic/libraries/architecture)
 -  [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
@@ -33,3 +33,4 @@ This app implements this awesome [library](https://github.com/prolificinteractiv
 -  [material ui](http://material.io/)
 -  [DataBinding](https://developer.android.com/topic/libraries/data-binding)
 -  [Glide](https://github.com/bumptech/glide)
+-  [material-calendarview](https://github.com/prolificinteractive/material-calendarview)
