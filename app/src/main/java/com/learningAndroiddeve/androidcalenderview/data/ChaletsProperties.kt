@@ -1,5 +1,7 @@
 package com.learningAndroiddeve.androidcalenderview.data
 
+import kotlinx.coroutines.flow.Flow
+
 
 data  class ChaletsProperties (
  var chaletName:String,

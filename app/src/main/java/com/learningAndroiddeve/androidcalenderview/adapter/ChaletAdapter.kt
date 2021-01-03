@@ -7,9 +7,28 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.learningAndroiddeve.androidcalenderview.data.ChaletsProperties
 import com.learningAndroiddeve.androidcalenderview.databinding.ChaletViewItemBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.util.*
 
 
 class ChaletAdapter() : ListAdapter<ChaletsProperties, ChaletAdapter.ChaletPropertyViewHolder>(DiffCallback) {
+
+    private val adapterScope = CoroutineScope(Dispatchers.Default)
+    var unfilteredList: List<ChaletsProperties>? = null
+
+    fun addList(allChaletReservationsResponse: List<ChaletsProperties>?) {
+        adapterScope.launch {
+            withContext(Dispatchers.Main){
+                unfilteredList = allChaletReservationsResponse
+                submitList(allChaletReservationsResponse)
+            }
+        }
+    }
+
 
     class ChaletPropertyViewHolder(private var binding: ChaletViewItemBinding):
         RecyclerView.ViewHolder(binding.root) {
@@ -25,9 +44,6 @@ class ChaletAdapter() : ListAdapter<ChaletsProperties, ChaletAdapter.ChaletPrope
 
     override fun onBindViewHolder(holder: ChaletPropertyViewHolder, position: Int) {
         val chaletsProperty = getItem(position)
-//        holder.itemView.setOnClickListener {
-//            onClickListener.onClick(imagesProperty)
-//        }
         holder.bind(chaletsProperty)
     }
 
@@ -40,6 +56,21 @@ class ChaletAdapter() : ListAdapter<ChaletsProperties, ChaletAdapter.ChaletPrope
         override fun areContentsTheSame(oldItem: ChaletsProperties, newItem: ChaletsProperties): Boolean {
             return oldItem.chaletName == newItem.chaletName
         }
+    }
+
+    fun filter(query:String) {
+                val list = mutableListOf<ChaletsProperties>()
+                if(query.isNotEmpty()) {
+                    unfilteredList?.filter {
+                        it.chaletNormalDayPrice.toString().toLowerCase(Locale.getDefault()).contains(query) ||
+                                it.chaletAvailableDays.toString().toLowerCase(Locale.getDefault()).contains(query)
+                    }?.let {
+                        list.addAll(it)
+                    }
+                } else {
+                    unfilteredList?.let { list.addAll(it) }
+                }
+                submitList(list)
     }
 
     class OnClickListener(val clickListener: (chaletsProperties:ChaletsProperties) -> Unit) {

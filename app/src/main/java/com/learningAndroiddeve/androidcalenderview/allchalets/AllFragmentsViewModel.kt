@@ -1,12 +1,13 @@
 package com.learningAndroiddeve.androidcalenderview.allchalets
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.util.Log
+import androidx.lifecycle.*
 import com.learningAndroiddeve.androidcalenderview.R
 import com.learningAndroiddeve.androidcalenderview.data.ChaletsProperties
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class AllFragmentsViewModel(var application: Application) : ViewModel() {
@@ -14,6 +15,7 @@ class AllFragmentsViewModel(var application: Application) : ViewModel() {
     private val _allChalets = MutableLiveData<List<ChaletsProperties>>()
     val allChalets: LiveData<List<ChaletsProperties>>
         get() = _allChalets
+
 
      var allChaletsInformations = listOf(ChaletsProperties("chalet AAA" ,
          "For Families Only",120.0,14.0
@@ -130,4 +132,7 @@ class AllFragmentsViewModel(var application: Application) : ViewModel() {
             _allChalets.value = listOf()
         }
     }
+
+
+
 }
