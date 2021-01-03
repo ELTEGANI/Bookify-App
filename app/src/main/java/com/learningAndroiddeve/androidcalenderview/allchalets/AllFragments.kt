@@ -1,13 +1,15 @@
 package com.learningAndroiddeve.androidcalenderview.allchalets
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.*
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -17,11 +19,12 @@ import com.learningAndroiddeve.androidcalenderview.databinding.AllChaletsFragmen
 import kotlinx.android.synthetic.main.filter_bottom_sheets.view.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+
 class AllFragments : Fragment() {
 
     private lateinit var allFragmentsViewModel: AllFragmentsViewModel
     private lateinit var allChaletsFragmentBinding: AllChaletsFragmentBinding
-
+    private lateinit var chaletAdapter: ChaletAdapter
     @ExperimentalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,11 +47,12 @@ class AllFragments : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
         setHasOptionsMenu(true)
 
-        val chaletAdapter = ChaletAdapter()
+        chaletAdapter = ChaletAdapter()
         allChaletsFragmentBinding.chaletsList.itemAnimator = DefaultItemAnimator()
         allChaletsFragmentBinding.chaletsList.adapter = chaletAdapter
         subscribeUi(chaletAdapter)
 
+        filterDialog()
         return allChaletsFragmentBinding.root
     }
 
@@ -67,34 +71,48 @@ class AllFragments : Fragment() {
     }
 
 
-    @ExperimentalCoroutinesApi
     private fun subscribeUi(adapter: ChaletAdapter) {
         allFragmentsViewModel.allChalets.observe(viewLifecycleOwner) { allChalets ->
-            adapter.submitList(allChalets)
+            adapter.addList(allChalets)
         }
     }
 
+    @ExperimentalCoroutinesApi
     private fun filterDialog() {
-        val dialogBinding = DataBindingUtil.inflate<ViewDataBinding>(LayoutInflater.from(context),
+        val dialogBinding = DataBindingUtil.inflate<ViewDataBinding>(
+            LayoutInflater.from(context),
             R.layout.filter_bottom_sheets,
-                null,
-                false
-            )
+            null,
+            false
+        )
         val dialog = context?.let {
             BottomSheetDialog(it)
         }
         dialog?.setContentView(dialogBinding.root.rootView)
-        dialogBinding.root.rootView.button_filter.setOnClickListener {
-            val price = dialogBinding.root.rootView.editTextText_price_from.text.toString()
-            val date = dialogBinding.root.rootView.editTextText_date_from.text.toString()
-            if(price.isEmpty() || date.isEmpty()){
-                Toast.makeText(requireContext(), "Please Enter Valid Data", Toast.LENGTH_SHORT).show()
-            }else{
-                Toast.makeText(requireContext(), "go fliter", Toast.LENGTH_SHORT).show()
+            dialogBinding.root.rootView.editTextText_price_from.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                (allChaletsFragmentBinding.chaletsList.adapter as ChaletAdapter).filter(s.toString())
             }
-        }
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                (allChaletsFragmentBinding.chaletsList.adapter as ChaletAdapter).filter(s.toString())
+            }
+        })
+
+        dialogBinding.root.rootView.editTextText_date_from.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                (allChaletsFragmentBinding.chaletsList.adapter as ChaletAdapter).filter(s.toString())
+            }
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                (allChaletsFragmentBinding.chaletsList.adapter as ChaletAdapter).filter(s.toString())
+            }
+        })
 
         dialog?.show()
        }
+
 
 }
