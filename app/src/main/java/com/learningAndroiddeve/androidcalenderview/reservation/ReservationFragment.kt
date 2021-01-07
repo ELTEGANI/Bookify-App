@@ -30,6 +30,10 @@ class ReservationFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         reservationFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.reservation_fragment,container,false)
 
+        val selectedChalet = arguments?.let {
+            ReservationFragmentArgs.fromBundle(it).selectedChalet
+        }
+
         val application = requireNotNull(this.activity).application
         val viewModelFactory = ReservationsViewModelFactory(application)
         reservationViewModel = ViewModelProvider(this,viewModelFactory).get(ReservationViewModel::class.java)
@@ -37,46 +41,32 @@ class ReservationFragment : Fragment() {
         reservationFragmentBinding.lifecycleOwner = this
         reservationFragmentBinding.viewModel = reservationViewModel
 
-        val listOfDatesFromServer = listOf(
-            "2020-8-16",
-            "2020-8-17",
-            "2020-8-18",
-            "2020-8-19",
-            "2020-8-20",
-            "2020-8-21",
-            "2020-8-22",
-            "2020-8-23",
-            "2020-8-24"
-        )
+        val listOfDatesFromServer = selectedChalet?.chaletAvailableDays
 
-        for (list in listOfDatesFromServer) {
-            val listSpitted = list.split("-")
-            val dates = CalendarDay.from(
-                listSpitted[0].toInt(),
-                listSpitted[1].toInt(),
-                listSpitted[2].toInt()
-            )
-            reservationFragmentBinding.calendarView.addDecorators(ReservedDaysDecorator(listOf(dates),"N/A"))
-            reservationFragmentBinding.calendarView.invalidateDecorators()
+        if (listOfDatesFromServer != null) {
+            for (list in listOfDatesFromServer) {
+                val listSpitted = list.split("-")
+                val dates = CalendarDay.from(
+                    listSpitted[0].toInt(),
+                    listSpitted[1].toInt(),
+                    listSpitted[2].toInt()
+                )
+                reservationFragmentBinding.calendarView.addDecorators(ReservedDaysDecorator(listOf(dates),"N/A"))
+                reservationFragmentBinding.calendarView.invalidateDecorators()
+            }
         }
 
 
-        val images = HashMap<String, Int>()
-        images["Scenes and palms"] = R.drawable.palms
-        images["Nice Views"] = R.drawable.nice_views
-        images["The Most Beautiful Scenery"] = R.drawable.nice_views_two
-        images["Relaxation"] = R.drawable.relaxation
-        images["Comfortable rooms"] = R.drawable.rooms
-        images["Swimming Pool"] = R.drawable.swimming_pool
-
-
-        for (name in images.keys) {
-            val textSliderView = TextSliderView(context)
-            textSliderView
-                .description(name)
-                .image(images[name]!!).scaleType = BaseSliderView.ScaleType.Fit
-            reservationFragmentBinding.slider.addSlider(textSliderView)
+        val images = HashMap<String,String>()
+        selectedChalet?.chaletImages?.forEach { url ->
+            images[""] = url
+            for (name in images.keys) {
+                val textSliderView = TextSliderView(context)
+                textSliderView.image(images[name]).scaleType = BaseSliderView.ScaleType.Fit
+                reservationFragmentBinding.slider.addSlider(textSliderView)
+            }
         }
+
         reservationFragmentBinding.slider.setPresetTransformer(SliderLayout.Transformer.Stack)
         reservationFragmentBinding.slider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom)
         reservationFragmentBinding.slider.setCustomAnimation(DescriptionAnimation())
@@ -87,10 +77,11 @@ class ReservationFragment : Fragment() {
             if(datesList.isNotEmpty()){
                 openPriceDialog(datesList,
                     "10",
-                    "20",
-                    "40",
-                    "700",
-                    "900")
+                    selectedChalet?.chaletInsurancePrice.toString(),
+                    selectedChalet?.chaletCommissionsValue.toString(),
+                    selectedChalet?.chaletNormalDayPrice.toString(),
+                    selectedChalet?.chaletHolidayPrice.toString()
+                )
             }else{
                 Snackbar.make(
                     requireActivity().findViewById(android.R.id.content),

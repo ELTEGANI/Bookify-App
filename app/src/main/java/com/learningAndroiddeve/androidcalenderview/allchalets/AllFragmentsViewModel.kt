@@ -16,6 +16,10 @@ class AllFragmentsViewModel(var application: Application) : ViewModel() {
     val allChalets: LiveData<List<ChaletsProperties>>
         get() = _allChalets
 
+    private val _navigateToSelectedChalet = MutableLiveData<ChaletsProperties>()
+    val navigateToSelectedChalet :LiveData<ChaletsProperties>
+        get() = _navigateToSelectedChalet
+
 
      var allChaletsInformations = listOf(ChaletsProperties("chalet AAA" ,
          "For Families Only",120.0,14.0
@@ -133,6 +137,13 @@ class AllFragmentsViewModel(var application: Application) : ViewModel() {
         }
     }
 
+    fun displaySelectedChalet(chaletsProperties: ChaletsProperties){
+        _navigateToSelectedChalet.value = chaletsProperties
+    }
+
+    fun displaySelectedChaletCompleted(){
+        _navigateToSelectedChalet.value = null
+    }
 
 
 }

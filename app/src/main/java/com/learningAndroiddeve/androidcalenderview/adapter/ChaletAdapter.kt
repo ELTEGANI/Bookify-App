@@ -15,7 +15,7 @@ import kotlinx.coroutines.withContext
 import java.util.*
 
 
-class ChaletAdapter() : ListAdapter<ChaletsProperties, ChaletAdapter.ChaletPropertyViewHolder>(DiffCallback) {
+class ChaletAdapter(private val onClickListener: OnClickListener) : ListAdapter<ChaletsProperties, ChaletAdapter.ChaletPropertyViewHolder>(DiffCallback) {
 
     private val adapterScope = CoroutineScope(Dispatchers.Default)
     var unfilteredList: List<ChaletsProperties>? = null
@@ -32,8 +32,9 @@ class ChaletAdapter() : ListAdapter<ChaletsProperties, ChaletAdapter.ChaletPrope
 
     class ChaletPropertyViewHolder(private var binding: ChaletViewItemBinding):
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(chaletsProperties : ChaletsProperties) {
+        fun bind(chaletsProperties : ChaletsProperties,clickListener: OnClickListener) {
             binding.chalet = chaletsProperties
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
     }
@@ -44,7 +45,7 @@ class ChaletAdapter() : ListAdapter<ChaletsProperties, ChaletAdapter.ChaletPrope
 
     override fun onBindViewHolder(holder: ChaletPropertyViewHolder, position: Int) {
         val chaletsProperty = getItem(position)
-        holder.bind(chaletsProperty)
+        holder.bind(chaletsProperty,onClickListener)
     }
 
 
@@ -73,7 +74,9 @@ class ChaletAdapter() : ListAdapter<ChaletsProperties, ChaletAdapter.ChaletPrope
                 submitList(list)
     }
 
-    class OnClickListener(val clickListener: (chaletsProperties:ChaletsProperties) -> Unit) {
-        fun onClick(chaletsProperties:ChaletsProperties) = clickListener(chaletsProperties)
-    }
+
+}
+
+class OnClickListener(val clickListener: (chaletsProperties:ChaletsProperties) -> Unit) {
+    fun onClick(chaletsProperties:ChaletsProperties) = clickListener(chaletsProperties)
 }
