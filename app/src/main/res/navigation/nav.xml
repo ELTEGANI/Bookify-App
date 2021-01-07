@@ -9,7 +9,12 @@
         android:id="@+id/reservationFragment"
         android:name="com.learningAndroiddeve.androidcalenderview.reservation.ReservationFragment"
         android:label="reservation_fragment"
-        tools:layout="@layout/reservation_fragment" />
+        tools:layout="@layout/reservation_fragment">
+        <argument
+            android:name="selectedChalet"
+            app:argType="com.learningAndroiddeve.androidcalenderview.data.ChaletsProperties"
+            />
+    </fragment>
     <fragment
         android:id="@+id/splashScreenFragment"
         android:name="com.learningAndroiddeve.androidcalenderview.splashscreen.SplashScreenFragment"

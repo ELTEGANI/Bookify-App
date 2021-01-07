@@ -1,8 +1,10 @@
 package com.learningAndroiddeve.androidcalenderview.data
 
-import kotlinx.coroutines.flow.Flow
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
 
+@Parcelize
 data  class ChaletsProperties (
  var chaletName:String,
  var chaletDescriptions:String,
@@ -12,5 +14,5 @@ data  class ChaletsProperties (
  var chaletCommissionsValue:Double,
  var chaletAvailableDays:List<String>,
  var chaletImages:List<String>
- )
+ ):Parcelable
 

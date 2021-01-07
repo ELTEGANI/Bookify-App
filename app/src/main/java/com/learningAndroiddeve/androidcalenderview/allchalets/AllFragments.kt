@@ -4,17 +4,19 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.learningAndroiddeve.androidcalenderview.R
 import com.learningAndroiddeve.androidcalenderview.adapter.ChaletAdapter
+import com.learningAndroiddeve.androidcalenderview.adapter.OnClickListener
 import com.learningAndroiddeve.androidcalenderview.databinding.AllChaletsFragmentBinding
 import kotlinx.android.synthetic.main.filter_bottom_sheets.view.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -47,12 +49,24 @@ class AllFragments : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
         setHasOptionsMenu(true)
 
-        chaletAdapter = ChaletAdapter()
+        chaletAdapter = ChaletAdapter(OnClickListener {
+            allFragmentsViewModel.displaySelectedChalet(it)
+        })
+
         allChaletsFragmentBinding.chaletsList.itemAnimator = DefaultItemAnimator()
         allChaletsFragmentBinding.chaletsList.adapter = chaletAdapter
         subscribeUi(chaletAdapter)
 
-        filterDialog()
+
+
+        allFragmentsViewModel.navigateToSelectedChalet.observe(viewLifecycleOwner, Observer {
+            if (it != null){
+                val direction = AllFragmentsDirections.actionAllFragmentsToReservationFragment(it)
+                findNavController().navigate(direction)
+                allFragmentsViewModel.displaySelectedChaletCompleted()
+            }
+        })
+
         return allChaletsFragmentBinding.root
     }
 
